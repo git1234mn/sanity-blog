@@ -30,6 +30,12 @@ export default createSchema({
           description: "Постын төрлийг текстээр бичих",
         },
         {
+          title: "Нийтлэлч",
+          name: "publisher",
+          type: "reference",
+          to: [{ type: "publisher" }],
+        },
+        {
           title: "Постын зураг",
           name: "cover_image",
           type: "image",
@@ -49,6 +55,23 @@ export default createSchema({
             slugify: (input) =>
               input.toLowerCase().replace(/\s+/g, "-").slice(0, 200),
           },
+        },
+      ],
+    },
+    {
+      title: "Нийтлэгч",
+      name: "publisher",
+      type: "document",
+      fields: [
+        {
+          title: "Нийтлэгчийн нэр",
+          name: "title",
+          type: "string",
+        },
+        {
+          title: "Нийтлэгчийн зураг",
+          name: "picture",
+          type: "image",
         },
       ],
     },
