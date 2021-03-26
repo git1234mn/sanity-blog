@@ -22,6 +22,16 @@ export default createSchema({
           type: "string",
           description:
             "Блогийн постын үндсэн гарчиг, 50 тэмдэгтээс бүү хэтрүүлээрэй",
+          validation: (Rule) => [
+            Rule.required()
+              .min(10)
+              .error("Гарчиг хамгийн багадаа 10 үсгээс тогтоно"),
+            Rule.required()
+              .max(80)
+              .warning(
+                "Гарчиг богинохон байх хэрэгтэй (80 тэмдэгтээс хэтрэхгүй)"
+              ),
+          ],
         },
         {
           title: "Дэд гарчиг",
@@ -39,6 +49,62 @@ export default createSchema({
           title: "Постын зураг",
           name: "cover_image",
           type: "image",
+          fields: [
+            {
+              title: "Зургийн тайлбар",
+              name: "alt",
+              type: "text",
+            },
+          ],
+          options: {
+            hotspot: true,
+          },
+        },
+        {
+          name: "content",
+          type: "array",
+          title: "Постын агуулга",
+          of: [
+            {
+              type: "block",
+            },
+            {
+              type: "image",
+              fields: [
+                {
+                  title: "Зургийн тайлбар",
+                  name: "alt",
+                  type: "text",
+                  options: {
+                    isHighlighted: true,
+                  },
+                },
+                {
+                  title: "Зургийн байрлал",
+                  name: "position",
+                  type: "string",
+                  options: {
+                    isHighlighted: true,
+                    list: [
+                      { title: "Голлуулж", value: "center" },
+                      { title: "Баруун талд", value: "right" },
+                      { title: "Зүүн талд", value: "left" },
+                    ],
+                    layout: "radio",
+                  },
+                },
+              ],
+              options: {
+                hotspot: true,
+              },
+            },
+            {
+              type: "code",
+              options: {
+                withFilename: true,
+              },
+            },
+          ],
         },
         {
           title: "Огноо",
